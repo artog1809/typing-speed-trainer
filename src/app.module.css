@@ -1,10 +1,12 @@
 body {
-    background-color: #20261f
+    background-color: #20261f;
+    color: #808e7d;
+    font-size: 30px;
 }
 
 .app {
     width: 100%;
     max-width: 1250px;
-    padding: 0px 50px;
+    padding: 0px 15%;
     margin: 0 auto;
 }
