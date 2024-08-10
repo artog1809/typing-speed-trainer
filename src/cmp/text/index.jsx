@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { generate } from "random-words";
 import styles from "./text.module.css";
-import useStore from "../../store/useStore";
+import useStore from "../../store/useInput";
 
 const Text = () => {
     const setDisplayText = useStore((state) => state.setDisplayText);
