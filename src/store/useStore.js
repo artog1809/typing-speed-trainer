@@ -27,7 +27,8 @@ const useStore = create((set) => ({
     setScreen: (screen) => set({ screen }),
 
 
-    reset: () => set({
+    reset: () => set( (state) => ({
+        displayText: generate(state.words).join(' '),
         inputText: '',
         wordCount: 0,
         incorrectCount: 0,
@@ -35,7 +36,13 @@ const useStore = create((set) => ({
         cpm: 0,
         acc: 0,
         screen: 'typing',
-    }),
+    })),
+
+    refresh: () => set( {
+        inputText: '',
+        wordCount: 0,
+        incorrectCount: 0,
+    })
 }));
 
 export default useStore;

@@ -1,3 +1,15 @@
+.header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+}
+
+.refresh {
+    width: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
+    cursor: pointer;
+}
+
 .input {
     height: 80%;
     display: flex;

@@ -16,6 +16,7 @@ const Input = () => {
     const setCpm = useStore((state) => state.setCpm);
     const setAcc = useStore((state) => state.setAcc);
     const words = useStore((state) => state.words);
+    const refresh = useStore((state) => state.refresh);
 
     const inputRef = useRef(null);
     const startTimeRef = useRef(null);
@@ -93,7 +94,10 @@ const Input = () => {
 
     return (
         <div className={styles.input} onClick={handleClick}>
-            <div className={styles.wordCount}>{wordCount} / {words}</div>
+            <div className={styles.header}>
+                <div className={styles.wordCount}>{wordCount} / {words}</div>
+                <img onClick={refresh} className={styles.refresh} src="src/icons/refresh.svg" />
+            </div>
             <input
                 ref={inputRef}
                 type="text"
