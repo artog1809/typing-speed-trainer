@@ -4,7 +4,7 @@ import styles from "./results.module.css";
 const Results = () => {
     const wpm = useStore((state) => state.wpm); 
     const cpm = useStore((state) => state.cpm);
-    const acc = useStore((state) => state.acc);
+    const incorrectCount = useStore((state) => state.incorrectCount);
     const reset = useStore((state) => state.reset);
 
     const handleRestart = () => {
@@ -17,15 +17,15 @@ const Results = () => {
             <div className={styles.container}>
                 <div className={styles.result}>
                     {wpm}
-                    <p className={styles.title}>WPM</p>
+                    <p className={styles.title}>wpm</p>
                 </div>
                 <div className={styles.result}>
                     {cpm}
-                    <p className={styles.title}>CPM</p>
+                    <p className={styles.title}>cpm</p>
                 </div>
                 <div className={styles.result}>
-                    {acc}%
-                    <p className={styles.title}>ACC</p>
+                    {incorrectCount}
+                    <p className={styles.title}>err</p>
                 </div>
             </div>
             <button className={styles.btn} onClick={handleRestart}>try again</button>

@@ -10,11 +10,9 @@ const Input = () => {
     const chars = useStore((state) => state.characters);
     const incrementWordCount = useStore((state) => state.incrementWordCount);
     const incrementIncorrectCount = useStore((state) => state.incrementIncorrectCount);
-    const incorrectCount = useStore((state) => state.incorrectCount);
     const setScreen = useStore((state) => state.setScreen);
     const setWpm = useStore((state) => state.setWpm);
     const setCpm = useStore((state) => state.setCpm);
-    const setAcc = useStore((state) => state.setAcc);
     const words = useStore((state) => state.words);
     const refresh = useStore((state) => state.refresh);
 
@@ -62,6 +60,10 @@ const Input = () => {
             return;
         }
 
+        if (currentChar !== expectedChar) {
+            incrementIncorrectCount(); // увеличиваем счетчик неправильных символов
+        }
+
         // записываем введенный текст в стейт
         setInputText(newInputText);
 
@@ -73,26 +75,13 @@ const Input = () => {
             console.log(timeTakenInSeconds, 's')
             const cpm = (chars / timeTakenInSeconds) * 60;
             const wpm = (wordCount / timeTakenInSeconds) * 60;
-            const acc = ((chars - incorrectCount) / chars) * 100;
             setCpm(Math.round(cpm));
             setWpm(Math.round(wpm));
-            setAcc(Math.round(acc));
             setScreen('results'); 
             return; 
         }
 
-        // проверить слово на корректность
-        const trimmedInput = newInputText.trim();
-        const words = trimmedInput.split(' ');
-        const currentWordIndex = words.length - 1;
-
-        const currentWord = words[currentWordIndex] || '';
-        const correctWord = displayText.split(' ')[currentWordIndex] || '';
-
         if (newInputText.endsWith(' ')) {
-            if (currentWord !== correctWord) {
-                incrementIncorrectCount(); 
-            }
             incrementWordCount(); 
         }
     };
