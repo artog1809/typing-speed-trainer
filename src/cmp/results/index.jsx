@@ -3,7 +3,8 @@ import styles from "./results.module.css";
 
 const Results = () => {
     const wpm = useStore((state) => state.wpm);
-    const incorrectCount = useStore((state) => state.incorrectCount);
+    const cpm = useStore((state) => state.cpm);
+    const acc = useStore((state) => state.acc);
     const reset = useStore((state) => state.reset);
 
     const handleRestart = () => {
@@ -12,10 +13,21 @@ const Results = () => {
 
     return (
         <div className={styles.results}>
-            <h1>Результаты</h1>
-            <p>Скорость печати: {wpm} слов в минуту</p>
-            <p>Количество неправильных символов: {incorrectCount}</p>
-            <button onClick={handleRestart}>Начать заново</button>
+            <div className={styles.container}>
+                <div className={styles.result}>
+                    {wpm}
+                    <p className={styles.title}>WPM</p>
+                </div>
+                <div className={styles.result}>
+                    {cpm}
+                    <p className={styles.title}>CPM</p>
+                </div>
+                <div className={styles.result}>
+                    {acc}%
+                    <p className={styles.title}>ACC</p>
+                </div>
+            </div>
+            <button className={styles.btn} onClick={handleRestart}>try again</button>
         </div>
     );
 }

@@ -1,0 +1,28 @@
+.results {
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    justify-content: center;
+    gap: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FB9039;
+    padding: 10px;
+    color: #Fff;
+    font-size: clamp(1.875rem, 1.45rem + 2.125vw, 4rem);
+}
+
+
+.btn {
+    font-size: clamp(1rem, 0.8rem + 1vw, 2rem);
+}

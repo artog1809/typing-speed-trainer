@@ -7,10 +7,14 @@ const Input = () => {
     const setInputText = useStore((state) => state.setInputText);
     const displayText = useStore((state) => state.displayText);
     const wordCount = useStore((state) => state.wordCount);
+    const chars = useStore((state) => state.characters);
     const incrementWordCount = useStore((state) => state.incrementWordCount);
     const incrementIncorrectCount = useStore((state) => state.incrementIncorrectCount);
+    const incorrectCount = useStore((state) => state.incorrectCount);
     const setScreen = useStore((state) => state.setScreen);
     const setWpm = useStore((state) => state.setWpm);
+    const setCpm = useStore((state) => state.setCpm);
+    const setAcc = useStore((state) => state.setAcc);
     const words = useStore((state) => state.words);
 
     const inputRef = useRef(null);
@@ -34,8 +38,12 @@ const Input = () => {
         if (newInputText.length >= displayText.length) {
             const endTime = new Date();
             const timeTakenInSeconds = (endTime - startTimeRef.current) / 1000;
+            const cpm = (chars / timeTakenInSeconds) * 60;
             const wpm = (wordCount / timeTakenInSeconds) * 60;
+            const acc = ((chars - incorrectCount) / chars) * 100;
+            setCpm(Math.round(cpm));
             setWpm(Math.round(wpm));
+            setAcc(Math.round(acc));
             setScreen('results'); 
             return; 
         }
