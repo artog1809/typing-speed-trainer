@@ -1,5 +1,19 @@
+.input {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    font-size: clamp(1.25rem, 1.1rem + 0.75vw, 2rem);
+}
+
+.wordCount {
+    color: #FB9039;
+}
+
 .hiddenInput {
     position: absolute;
     opacity: 0;
     pointer-events: none;
+    max-width: 20px;
 }

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import useStore from "../../store/useInput";
+import useStore from "../../store/useStore";
 import styles from "./input.module.css";
 
 const Input = () => {
@@ -11,6 +11,7 @@ const Input = () => {
     const incrementIncorrectCount = useStore((state) => state.incrementIncorrectCount);
     const setScreen = useStore((state) => state.setScreen);
     const setWpm = useStore((state) => state.setWpm);
+    const words = useStore((state) => state.words);
 
     const inputRef = useRef(null);
     const startTimeRef = useRef(null);
@@ -60,11 +61,11 @@ const Input = () => {
 
     const renderTextWithHighlight = () => {
         return displayText.split('').map((char, index) => {
-            let color = 'black';
+            let color = '#70829d';
             let textDecoration = 'none';
 
             if (inputText[index]) {
-                color = inputText[index] === char ? 'green' : 'red';
+                color = inputText[index] === char ? '#ced8fb' : 'red';
             }
 
             if (index === inputText.length) {
@@ -84,7 +85,7 @@ const Input = () => {
 
     return (
         <div className={styles.input} onClick={handleClick}>
-            <div className={styles.wordCount}>Счетчик слов: {wordCount}</div>
+            <div className={styles.wordCount}>{wordCount} / {words}</div>
             <input
                 ref={inputRef}
                 type="text"

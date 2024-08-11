@@ -1,8 +1,7 @@
 import styles from "./page.module.css"
 import Header from "../header"
-import Text  from "../text"
 import Input from "../input"
-import useStore from "../../store/useInput"
+import useStore from "../../store/useStore"
 import Results from "../results"
 
 const Page = () => { 
@@ -12,7 +11,7 @@ const Page = () => {
     return (
         <div className={styles.page}>
             <Header />
-            <Text />
+            {/* <Text /> */}
             {screen === 'typing' ? <Input /> : <Results />}
 
         </div>

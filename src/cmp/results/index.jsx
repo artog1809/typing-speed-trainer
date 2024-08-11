@@ -1,4 +1,4 @@
-import useStore from "../../store/useInput";
+import useStore from "../../store/useStore";
 import styles from "./results.module.css";
 
 const Results = () => {

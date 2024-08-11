@@ -1,12 +1,18 @@
+@font-face {
+    font-family: 'Light';
+    src: url('./fonts/RobotoSlab-Light.ttf');
+}
 body {
-    background-color: #20261f;
-    color: #808e7d;
+    background-color: #1F3044;
+    color: #70829d;
     font-size: 30px;
+    font-family: 'Light';
 }
 
 .app {
     width: 100%;
     max-width: 1250px;
-    padding: 0px 15%;
+    padding: 0px 15px;
     margin: 0 auto;
+    height: 100vh;
 }
