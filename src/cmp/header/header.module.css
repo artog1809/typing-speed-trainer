@@ -1,7 +1,11 @@
 .header {
     display: flex;
     justify-content: space-between;
-    padding: 50px 0px;
+    padding: 20px 0px;
+    height: clamp(3.125rem, 1.968rem + 6.173vw, 9.375rem);
+    font-size: clamp(1rem, 0.8rem + 1vw, 2rem);
+    align-items: center;
+
 }
 
 .left {
@@ -13,4 +17,9 @@
     display: flex;
     justify-content: flex-end;
     gap: 20px;
+}
+
+
+button.active {
+    color: #FB9039;
 }
