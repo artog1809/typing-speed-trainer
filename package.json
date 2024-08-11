@@ -2,6 +2,7 @@
   "name": "typing-speed-trainer",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://artog1809.github.io/typing-speed-trainer/",
   "type": "module",
   "scripts": {
     "dev": "vite",
