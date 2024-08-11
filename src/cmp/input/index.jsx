@@ -8,26 +8,53 @@ const Input = () => {
     const displayText = useStore((state) => state.displayText);
     const wordCount = useStore((state) => state.wordCount);
     const incrementWordCount = useStore((state) => state.incrementWordCount);
+    const incrementIncorrectCount = useStore((state) => state.incrementIncorrectCount);
+    const setScreen = useStore((state) => state.setScreen);
+    const setWpm = useStore((state) => state.setWpm);
 
     const inputRef = useRef(null);
+    const startTimeRef = useRef(null);
 
     useEffect(() => {
-        // Автоматически фокусируемся на скрытом input при загрузке компонента
         inputRef.current.focus();
+        startTimeRef.current = new Date(); // Устанавливаем стартовое время
     }, []);
 
     const handleChange = (e) => {
-        const value = e.target.value;
+        const newInputText = e.target.value;
 
-        if (value.endsWith(' ')) {
-            incrementWordCount(); // Увеличиваем счетчик слов при вводе пробела
+        
+        if (newInputText.length > 0 && newInputText[newInputText.length - 1] === ' ' && (inputText[inputText.length - 1] === ' ' || newInputText.length === 1)) {
+            return; 
         }
 
-        setInputText(value);
+        setInputText(newInputText);
+
+        if (newInputText.length >= displayText.length) {
+            const endTime = new Date();
+            const timeTakenInSeconds = (endTime - startTimeRef.current) / 1000;
+            const wpm = (wordCount / timeTakenInSeconds) * 60;
+            setWpm(Math.round(wpm));
+            setScreen('results'); 
+            return; 
+        }
+
+        const trimmedInput = newInputText.trim();
+        const words = trimmedInput.split(' ');
+        const currentWordIndex = words.length - 1;
+
+        const currentWord = words[currentWordIndex] || '';
+        const correctWord = displayText.split(' ')[currentWordIndex] || '';
+
+        if (newInputText.endsWith(' ')) {
+            if (currentWord !== correctWord) {
+                incrementIncorrectCount(); 
+            }
+            incrementWordCount(); 
+        }
     };
 
     const handleClick = () => {
-        // Фокусируемся на скрытом input при клике на любом месте компонента
         inputRef.current.focus();
     };
 
@@ -56,18 +83,18 @@ const Input = () => {
     };
 
     return (
-        <div className={styles.input} onClick={handleClick}> {/* Клик по компоненту фокусирует инпут */}
-            <div className={styles.wordCount}>Счетчик слов: {wordCount}</div> {/* Счетчик слов */}
+        <div className={styles.input} onClick={handleClick}>
+            <div className={styles.wordCount}>Счетчик слов: {wordCount}</div>
             <input
                 ref={inputRef}
                 type="text"
                 value={inputText}
                 onChange={handleChange}
-                className={styles.hiddenInput} // Применяем скрытие через CSS
+                className={styles.hiddenInput}
             />
-            <div className={styles.display}>{renderTextWithHighlight()}</div> {/* Отображение текста с подсветкой и подчеркиванием */}
+            <div className={styles.display}>{renderTextWithHighlight()}</div>
         </div>
-    )
-}
+    );
+};
 
 export default Input;
