@@ -1,8 +1,8 @@
 import create from 'zustand';
-import { generate } from 'random-words'; // Импорт функции для генерации случайных слов
+import { generate } from 'random-words';
 
-// Создаем Zustand хранилище
 const useStore = create((set) => ({
+    // стейт
     words: 20,
     displayText: generate(20).join(' '),
     inputText: '',
@@ -14,7 +14,7 @@ const useStore = create((set) => ({
     acc: 0,
     screen: 'typing',
 
-
+    // изменить стейт
     setWords: (count) => set({ words: count }),
     setCharacters: (count) => set({ characters: count }),
     setDisplayText: (text) => set({ displayText: text }),
@@ -26,7 +26,7 @@ const useStore = create((set) => ({
     setAcc: (acc) => set({ acc }),
     setScreen: (screen) => set({ screen }),
 
-
+    // новый текст
     reset: () => set( (state) => ({
         displayText: generate(state.words).join(' '),
         inputText: '',
@@ -38,6 +38,7 @@ const useStore = create((set) => ({
         screen: 'typing',
     })),
 
+    // начать заново
     refresh: () => set( {
         inputText: '',
         wordCount: 0,

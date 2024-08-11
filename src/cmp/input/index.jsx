@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef, useState } from "react";
 import useStore from "../../store/useStore";
 import styles from "./input.module.css";
 
@@ -20,25 +20,57 @@ const Input = () => {
 
     const inputRef = useRef(null);
     const startTimeRef = useRef(null);
+    const [timerStarted, setTimerStarted] = useState(false); // состояние для таймера
 
-    useEffect(() => {
-        inputRef.current.focus();
-        startTimeRef.current = new Date(); // Устанавливаем стартовое время
-    }, []);
+    // запуск таймера
+    const handleStartTimer = () => {
+        if (!timerStarted) {
+            startTimeRef.current = new Date(); 
+            setTimerStarted(true);
+            console.log('Timer started');
+        }
+    };
 
     const handleChange = (e) => {
+        handleStartTimer();
+        
         const newInputText = e.target.value;
 
-        
-        if (newInputText.length > 0 && newInputText[newInputText.length - 1] === ' ' && (inputText[inputText.length - 1] === ' ' || newInputText.length === 1)) {
-            return; 
+        // запрет стирать символы
+        if (newInputText.length < inputText.length) {
+            return;
         }
 
+        // текущий введенный символ
+        const currentChar = newInputText[newInputText.length - 1];
+
+        // ожидаемый символ
+        const expectedChar = displayText[newInputText.length - 1];
+
+        // проверка, является ли текущий символ буквой
+        const isLetter = /^[a-zA-Z]$/.test(currentChar);
+
+        const isSpace = currentChar === ' ';
+
+        // если ожидаемый символ - буква, но пользователь ввел не букву, отменяем ввод
+        if (/[a-zA-Z]/.test(expectedChar) && !isLetter) {
+            return;
+        }
+
+        // если ожидаевы символ - пробел, но пользователь ввел не пробел, отменяем ввод
+        if (expectedChar === ' ' && !isSpace) {
+            return;
+        }
+
+        // записываем введенный текст в стейт
         setInputText(newInputText);
 
+
+        // если длина текста больше или равно длине ожидаемого текста то закончит ввод и высчитать метрики
         if (newInputText.length >= displayText.length) {
             const endTime = new Date();
             const timeTakenInSeconds = (endTime - startTimeRef.current) / 1000;
+            console.log(timeTakenInSeconds, 's')
             const cpm = (chars / timeTakenInSeconds) * 60;
             const wpm = (wordCount / timeTakenInSeconds) * 60;
             const acc = ((chars - incorrectCount) / chars) * 100;
@@ -49,6 +81,7 @@ const Input = () => {
             return; 
         }
 
+        // проверить слово на корректность
         const trimmedInput = newInputText.trim();
         const words = trimmedInput.split(' ');
         const currentWordIndex = words.length - 1;
@@ -64,10 +97,13 @@ const Input = () => {
         }
     };
 
+    // поймать фокус пользователя
     const handleClick = () => {
         inputRef.current.focus();
     };
 
+
+    // выделение текста на экране в зависимости от ввода пользователя
     const renderTextWithHighlight = () => {
         return displayText.split('').map((char, index) => {
             let color = '#70829d';

@@ -11,7 +11,6 @@ const Page = () => {
     return (
         <div className={styles.page}>
             <Header />
-            {/* <Text /> */}
             {screen === 'typing' ? <Input /> : <Results />}
 
         </div>

@@ -2,15 +2,16 @@ import useStore from "../../store/useStore";
 import styles from "./results.module.css";
 
 const Results = () => {
-    const wpm = useStore((state) => state.wpm);
+    const wpm = useStore((state) => state.wpm); 
     const cpm = useStore((state) => state.cpm);
     const acc = useStore((state) => state.acc);
     const reset = useStore((state) => state.reset);
 
     const handleRestart = () => {
-        reset(); // Сбрасываем состояние и начинаем заново
+        reset(); // сбрасываем состояние и начинаем заново
     };
 
+    // отрисовываем экран результатов
     return (
         <div className={styles.results}>
             <div className={styles.container}>

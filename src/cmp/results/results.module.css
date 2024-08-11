@@ -20,9 +20,10 @@
     padding: 10px;
     color: #Fff;
     font-size: clamp(1.875rem, 1.45rem + 2.125vw, 4rem);
+    min-width: 70px;
+    width: 150px;
 }
 
-
-.btn {
+.btn, .title {
     font-size: clamp(1rem, 0.8rem + 1vw, 2rem);
 }

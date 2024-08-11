@@ -15,14 +15,15 @@ const Header = () => {
         reset: state.reset,
     }));
 
+    // получить количество символов в тексте
     useEffect(() => {
         setCharacters(displayText.length);
     }, [displayText])
     
 
+    // изменить количество символов в тексте
     const handleWordCountChange = (count) => {
         setWords(count);
-        // Generate new text based on the selected word count
         const newText = generate(count).join(' ');
         setCharacters(newText.length);
         reset();
@@ -35,7 +36,7 @@ const Header = () => {
             <div className={styles.right}>
                 <span>words</span>
                 <span>
-                { [20, 30, 40, 50].map(count => (
+                { [10, 20, 30, 40, ].map(count => (
                         <button
                             key={count}
                             className={count === words ? styles.active : ''}
